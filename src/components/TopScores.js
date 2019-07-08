@@ -6,7 +6,7 @@ class TopScores extends Component {
     state = {
        scores: [],
        name: "",
-       score: null
+       score: Number
     };
 
     getScores = async () => {
