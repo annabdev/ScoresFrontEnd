@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom'
 class AddScore extends Component {
     state = {
       name: "",
-      score: null
+      score: 0
     };
   
   //Post 
   handleSubmit = async e => {
       e.preventDefault();
       const data = JSON.stringify(this.state);
+console.log(typeof this.state.score);
       await fetch("http://localhost:4000/", {
           method: "POST",
           body: data,
@@ -36,7 +37,7 @@ class AddScore extends Component {
                 <br />
                 <label>
                     Score:
-      <input type="number" name="Score" onChange={e => this.setState({ score: e.target.value })} />
+                    <input type="number" name="Score" onChange={e => this.setState({ score: parseInt(e.target.value) })} />
                 </label>
                 <input type="submit" value="Submit" />
             </form>
