@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import VideoBackground from './VideoBackground';
+
+
+
 
 
 class AddScore extends Component {
@@ -26,9 +30,12 @@ console.log(typeof this.state.score);
       console.log(this)
       console.log(this.state)
     return (
+       
         <div>
+      <VideoBackground />
             Please enter your information here
       <br />
+      
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Name:
