@@ -5,14 +5,15 @@ MDBRow, MDBCol, MDBIcon, MDBBtn, MDBView, MDBContainer } from "mdbreact";
 
 
 class VideoBackgroundPage extends React.Component {
-state = {
-collapseID: ""
-};
+    state = {
+        collapseID: ""
+        };
+        
+        toggleCollapse = collapseID => () =>
+        this.setState(prevState => ({
+        collapseID: prevState.collapseID !== collapseID ? collapseID : ""
+        }));
 
-toggleCollapse = collapseID => () =>
-this.setState(prevState => ({
-collapseID: prevState.collapseID !== collapseID ? collapseID : ""
-}));
 
 render() {
 

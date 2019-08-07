@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import VideoBackground from './VideoBackground';
+import '../index.css'
+import SelGame from './SelGame.js';
 
 
 
@@ -46,10 +48,17 @@ console.log(typeof this.state.score);
                     Score:
                     <input type="number" name="Score" onChange={e => this.setState({ score: parseInt(e.target.value) })} />
                 </label>
-                <input type="submit" value="Submit" />
-            </form>
-            <br />
-
+                <br />
+                <label>
+                Game:
+                </label>
+                <SelGame />
+  <input type = "submit"
+    value = "Submit"/>
+     {/* onclick = "changeColor()"  */}
+    
+</form>
+       <br />
             <Link to="/topscores">Top Scores</Link>
         </div>
     );
