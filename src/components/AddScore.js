@@ -11,7 +11,8 @@ import SelGame from './SelGame.js';
 class AddScore extends Component {
     state = {
       name: "",
-      score: 0
+      score: 0,
+      game: ""
     };
   
   //Post 

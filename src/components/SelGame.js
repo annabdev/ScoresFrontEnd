@@ -1,40 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Select from 'react-select';
+import styled from 'styled-components'
 
-class SelGame extends Component {
-  state = {
-    games: [],
-    selectedGame: "",
-    validationError: ""
-  }
-
-  componentDidMount() {
-    fetch("http://localhost:4000")
-    .then((response) => {
-      return response.json();
+const customStyles = (width=40, height=40) => {
+  return {
+    container: (base) => ({
+      ...base,
+      display:'inline-block',
+      width: width,
+    }),
+    valueContainer: (base) => ({
+      ...base,
+      minHeight: height,
     })
-    .then(data => {
-      let gamesFromApi = data.map(game => { return {
-        value: game, display: game} })
-        this.setState({ teams: [{value: '', display: '(Select Game)'}]
-        .concat(gamesFromApi)});
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
-   render() {
-    return (
-      <div>
-        <select value={this.state.selectedGame} 
-                onChange={(e) => this.setState({selectedGame: e.target.value, validationError: e.target.value === "" ? "You must select your game" : ""})}>
-          {this.state.games.map((game) => <option key={game.value} value={game.value}>{game.display}</option>)}
-        </select>
-        <div style={{color: 'red', marginTop: '5px'}}>
-          {this.state.validationError}
-        </div>
-      </div>
-    )
   }
 }
+
+const games = [
+  { label: "Ms. Pac-Man", value: 1 },
+  { label: "Iron Maiden Pinball", value: 2 },
+  { label: "Donkey Kong Jr", value: 3 },
+  { label: "Skeeball", value: 4 }
+];
+
+const SelGame = () => (
+  <div>
+        <Select 
+        options={ games } />
+     
+  </div>
+);
 
 export default SelGame;
