@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import VideoBackground from './VideoBackground';
 import '../index.css'
-import SelGame from './SelGame.js';
+
 
 
 
@@ -53,7 +53,13 @@ console.log(typeof this.state.score);
                 <label>
                 Game:
                 </label>
-                <SelGame />
+                <select onChange={e => this.setState({ game: e.target.value })}>
+                <option value="Select Game">Select Game</option>
+  <option value="Ms. Pacman">Ms. Pacman</option>
+  <option value="Iron Maiden Pinball">Iron Maiden Pinball</option>
+  <option value="Skeeball">Skeeball</option>
+  <option value="Donkey Kong Jr.">Donkey Kong Jr.</option>
+</select>
   <input type = "submit"
     value = "Submit"/>
      {/* onclick = "changeColor()"  */}
