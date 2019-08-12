@@ -24,9 +24,13 @@ flex-direction: column;
 width: 170px;
 padding: 70px 0;
 align-items: center;
-margin-left: auto;
+margin-left: 40%;
+margin-top:10%;
 justify-content: space-around;
 text-align: center;
+background-color: black;
+border: 2px white groove;
+border-radius: 20px;
 `
 
 

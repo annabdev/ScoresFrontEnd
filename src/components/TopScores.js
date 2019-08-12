@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import WebFont from 'webfontloader';
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components';
+import YouTube from 'react-youtube';
+
 
 WebFont.load({
   google: {
@@ -18,18 +20,18 @@ body {
   font-size: 12px;
 }`
 
-const Container = styled.div
-  `display: flex;
+const Container = styled.div`
+display: flex;
 flex-direction: column;
 width: 300px;
 padding: 70px 0;
 text-align: center;
-margin-left: auto;
+margin-left: 60%;
+margin-top: 20%;
 justify-content: space-around;
 
 `
-const Scores = styled.div
-`
+const Scores = styled.div`
 display: flex;
 flex-direction: row;
 text-align: center;
@@ -90,8 +92,29 @@ class TopScores extends Component {
     }
   render(){
       console.log(this.state);
+      const videoOptions = {
+        playerVars: { // https://developers.google.com/youtube/player_parameters
+          autoplay: 1,
+          controls: 0,
+          rel: 0,
+          showinfo: 0,
+          loop: 1,
+          playlist: "SJ56bboB1xE"
+        }}
   return (
     <div>
+        <div className="video-background">
+        <div className="video-foreground">
+          <YouTube
+            videoId="SJ56bboB1xE"
+            opts={videoOptions}
+            className="video-iframe"
+            onReady={this._onReady}
+            onEnd={this._onEnd}
+            
+          />
+        </div>
+      </div>
        <GlobalStyles />
        <Container>
     {this.state.scores.map( (scores, index, game) => (
