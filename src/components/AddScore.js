@@ -26,8 +26,7 @@ padding: 70px 0;
 align-items: center;
 margin-left: auto;
 justify-content: space-around;
-border: 2px white groove;
-border-radius: 5px;
+text-align: center;
 `
 
 

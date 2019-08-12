@@ -23,17 +23,16 @@ const Container = styled.div
 flex-direction: column;
 width: 300px;
 padding: 70px 0;
-align-items: center;
+text-align: center;
 margin-left: auto;
 justify-content: space-around;
-border: 2px white groove;
-border-radius: 5px;
+
 `
 const Scores = styled.div
 `
 display: flex;
 flex-direction: row;
-align-items: left;
+text-align: center;
 justify-content: space-around;
 `
 
