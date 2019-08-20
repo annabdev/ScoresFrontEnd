@@ -18,51 +18,72 @@ body {
   font-family: 'Press Start 2P', Roboto;
   color: white;
   font-size: 12px;
+}
+.video-iframe {
+  width: 100%;
+}
+h1 {
+  text-transform: uppercase;
+  font-size: 34px;
+  margin-bottom: 40px;
 }`
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-width: 300px;
-padding: 70px 0;
+width: 553px;
+height: 580px;
+position: absolute;
+top: 78px;
+right: 76px;
+padding: 30px 0;
 text-align: center;
-margin-left: 60%;
-margin-top: 20%;
-justify-content: space-around;
-
+background-color: transparent;
+overflow: scroll;
 `
+
 const Scores = styled.div`
 display: flex;
 flex-direction: row;
 text-align: center;
 justify-content: space-around;
+overflow: none;
 `
 
 class TopScores extends Component {
     state = {
        scores: [],
        name: "",
-       score: Number
+       score: Number,
+       current_display_position: 0,
+      //  stuff_to_display: { scores: [] }
     };
 
-    getGames = async () => {
-        return fetch("http://localhost:4000")
-        .then(results => {
-            return results.json();
-        })
-        .then(results => {
-            console.log(results)
-            this.setState( { game:results } );
-        });
-    };
+    list_of_games = ['Skeeball', 'Iron Maiden Pinball', 'Donkey Kong Jr.', 'Ms. Pacman']
 
-    filterGames = e => {
-        let games = this.state.games;
-        games = games.filter(games => {
-            return (games) !==1
-        });
-        this.setState({ game: games.games });
-    };
+    // uniqueValues(v, i, s) {
+    //   return s.indexOf(v) === i
+    // }
+
+    // getGames = async () => {
+    //     return fetch("http://localhost:4000")
+    //     .then(results => {
+    //         return results.json();
+    //     })
+    //     .then(results => {
+    //         // console.log(results)
+    //         this.setState( { game:results } );
+    //     }).then(() => {
+    //       // console.log("games")
+    //       // console.log(this.state.game)
+    //     });
+    // };
+
+    // filterGames = e => {
+    //     let games = this.state.games;
+    //     games = games.filter(games => {
+    //         return (games) !==1
+    //     });
+    //     this.setState({ game: games.games });
+    // };
 
     getScores = async () => {
         return fetch("http://localhost:4000")
@@ -70,28 +91,83 @@ class TopScores extends Component {
             return results.json();
         })
         .then(results => {
-            console.log(results)
+            // console.log(results)
             this.setState( {scores:results} );
+        }).then(() => {
+          // console.log("scores")
+          // console.log(this.state.scores)
         });
     };
 
-    filterScores = e => {
-        let scores = this.state.scores;
-        scores = scores.filter(scores => {
-            return (scores) !==1
-        });
-        this.setState({ score: scores.scores });
-    };
-
-    async componentWillMount() {
-        await this.getGames();
+    getScoresForGame = async (name) => {
+      let encodedName = escape(name)
+      console.log("name is")
+      console.log(name)
+      return fetch("http://localhost:4000/" + encodedName)
+      .then(results => {
+        return results.json();
+      })
+      .then(results => {
+        this.setState( { scores: results } )
+        console.log(results)
+        this.setState((state) => {
+          let new_state = 0
+          if (state.current_display_position < 3) {
+            new_state = state.current_display_position + 1
+          } else {
+            new_state = 0
+          }
+          return { current_display_position: new_state }
+        })
+      })
     }
+
+    // filterScores = e => {
+    //     let scores = this.state.scores;
+    //     scores = scores.filter(scores => {
+    //         return (scores) !==1
+    //     });
+    //     this.setState({ score: scores.scores });
+    //     console.log(this.state.score)
+    // };
+
+    // setContentForDisplay = (x) => {
+    //   console.log(this.state.current_display_position)
+    //   if(this.state.current_display_position == -1) {
+    //     this.state.stuff_to_display = {scores: this.state.scores}
+    //     this.setState((state) => {
+    //       return { current_display_position: state.current_display_position + 1 }
+    //     })
+    //   } else {
+    //     let gamesOnly = []
+    //     this.state.stuff_to_display.scores.map((s) => {
+    //       gamesOnly.push(s.game)
+    //     })
+    //     let uniqueGames = [...new Set(gamesOnly)]
+    //     console.log('filtered games')
+    //     console.log(uniqueGames)
+    //     if(this.state.current_display_position == uniqueGames.length) {
+    //       this.setState({ current_display_position: -1 })
+    //     } else {
+    //       this.setState((state) => {
+    //         return { current_display_position: state.current_display_position + 1 }
+    //       })
+    //     }
+    //   }
+    // }
+
+    // async componentWillMount() {
+    //     await this.getGames();
+    // }
 
     async componentDidMount() {
-        await this.getScores();
+        await this.getScoresForGame('Skeeball');
+        setInterval(() => { 
+          this.getScoresForGame(this.list_of_games[this.state.current_display_position])
+        },5000)
     }
+
   render(){
-      console.log(this.state);
       const videoOptions = {
         playerVars: { // https://developers.google.com/youtube/player_parameters
           autoplay: 1,
@@ -101,6 +177,10 @@ class TopScores extends Component {
           loop: 1,
           playlist: "SJ56bboB1xE"
         }}
+      // setInterval(() => {
+      //   console.log('running again')
+      //   this.setContentForDisplay()
+      // }, 5000)
   return (
     <div>
         <div className="video-background">
@@ -117,6 +197,7 @@ class TopScores extends Component {
       </div>
        <GlobalStyles />
        <Container>
+         <h1>High Scores</h1>
     {this.state.scores.map( (scores, index, game) => (
      <div className="border" key={index}>
          <h2>{scores.game}</h2>
