@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import WebFont from 'webfontloader';
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components';
-import YouTube from 'react-youtube';
+
 
 
 WebFont.load({
@@ -135,7 +134,7 @@ class TopScores extends Component {
             </div>
           ))}
 
-          <Link to="/" style={linkStyles}>Add New Score</Link>
+         
         </Container>
       </div>
     )

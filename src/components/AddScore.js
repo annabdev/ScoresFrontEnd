@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components';
 import '../index.css'
@@ -61,7 +60,7 @@ class AddScore extends Component {
         "Content-Type": "application/json"
       }
     }).then(() => {
-      console.log('complete!')
+
     });
   };
 
@@ -108,7 +107,7 @@ class AddScore extends Component {
 
           <br />
 
-          <Link to="/topscores">Top Scores</Link>
+          
         </Container>
       </div>
     );
