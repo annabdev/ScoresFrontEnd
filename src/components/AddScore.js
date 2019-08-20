@@ -48,6 +48,10 @@ class AddScore extends Component {
   //Post 
   handleSubmit = async e => {
     e.preventDefault();
+    if(this.state.game == '') {
+      console.log("game not selected")
+      return
+    }
     const data = JSON.stringify(this.state);
     console.log(typeof this.state.score);
     await fetch("http://localhost:4000/", {
@@ -56,6 +60,8 @@ class AddScore extends Component {
       headers: {
         "Content-Type": "application/json"
       }
+    }).then(() => {
+      console.log('complete!')
     });
   };
 
@@ -76,7 +82,7 @@ class AddScore extends Component {
             <br />
             <label>
               Score:
-                    <input type="number" name="Score" onChange={e => this.setState({ score: parseInt(e.target.value) })} />
+                    <input type="text" name="Score" pattern={'[0-9\,]+'} onChange={e => this.setState({ score: parseInt(e.target.value) })} />
             </label>
             <br />
             <br />
