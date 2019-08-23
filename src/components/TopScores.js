@@ -19,16 +19,51 @@ body {
   font-size: 12px;
 }
 
+h1 {
+  font-size: 250%;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
 h2 {
   font-size: 160%;
   margin-bottom: 30px;
+}
+
+table {
+  margin: 0 auto;
+  border-spacing: 20px 0;
+}
+tr td {
+  padding: 8px 0;
+}
+tr td:first-child {
+  text-align: right;
+  width: 50px;
+}
+tr td:last-child {
+  text-align: left;
+  width: 50px;
+}
+
+.scoreboard-background {
+  position: absolute;
+  top: 70px;
+  right: 100px;
+  width: 37%;
+  min-width: 480px;
+  height: 530px;
+  background: url('../assets/05_DELIVERABLES/_frame3_00000-edited.png') no-repeat center center;
+  background-size: 100% 100%;
+  z-index: 0;
 }`
 
 const Container = styled.div`
-width: 38%;
+width: 37%;
+min-width: 480px;
 position: absolute;
-top: 18%;
-left: 52%;
+top: 90px;
+right: 100px;
 padding: 30px 0;
 text-align: center;
 background-color: transparent;
@@ -98,6 +133,10 @@ class TopScores extends Component {
 
   async componentDidMount() {
     await this.getScoresTheFirstTime('Skeeball');
+    this.setState((state) => {
+      let new_state = 1
+      return { current_display_position: new_state }
+    })
     i = setInterval(() => { 
       this.getScoresForGame(this.list_of_games[this.state.current_display_position])
     }, this.refresh_interval)
@@ -120,19 +159,22 @@ class TopScores extends Component {
     return (
       <div>
         <video loop={true} autoPlay={true}>
-          <source src="../assets/05_DELIVERABLES/_RENDER-BLACK.mp4" type="video/mp4" />
+          <source src="../assets/05_DELIVERABLES/_RENDER-BLACK_no-frame.mp4" type="video/mp4" />
         </video>
+        <div className="scoreboard-background"></div>
         <GlobalStyles />
         <Container>
+          <h1>High Scores</h1>
           <h2>{gameTitle}</h2>
 
-          {this.state.scores.map( (scores, index, game) => (
-            <div className="border" key={index}>
-              <Scores>
-                <h3>{scores.score}  {scores.name}</h3>
-              </Scores>
-            </div>
-          ))}
+          <table>
+            {this.state.scores.map( (scores, index, game) => (
+              <tr>
+                <td>{scores.score}</td>
+                <td>{scores.name}</td>
+              </tr>
+            ))}
+          </table>
 
          
         </Container>
