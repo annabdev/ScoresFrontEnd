@@ -60,3 +60,4 @@ class DeleteScore extends Component {
 }}
 
 export default DeleteScore;
+
