@@ -20,15 +20,32 @@ body {
 }
 
 h2 {
-  font-size: 160%;
+  font-size: 200%;
   margin-bottom: 30px;
+}
+
+table {
+  margin: 0 auto;
+  border-spacing: 20px 0;
+  font-size: 120%;
+}
+tr td {
+  padding: 8px 0;
+}
+tr td:first-child {
+  text-align: right;
+  width: 50px;
+}
+tr td:last-child {
+  text-align: left;
+  width: 50px;
 }`
 
 const Container = styled.div`
-width: 38%;
+width: 37%;
 position: absolute;
-top: 18%;
-left: 52%;
+top: 12%;
+right: 100px;
 padding: 30px 0;
 text-align: center;
 background-color: transparent;
@@ -98,6 +115,10 @@ class TopScores extends Component {
 
   async componentDidMount() {
     await this.getScoresTheFirstTime('Skeeball');
+    this.setState((state) => {
+      let new_state = 1
+      return { current_display_position: new_state }
+    })
     i = setInterval(() => { 
       this.getScoresForGame(this.list_of_games[this.state.current_display_position])
     }, this.refresh_interval)
@@ -126,13 +147,14 @@ class TopScores extends Component {
         <Container>
           <h2>{gameTitle}</h2>
 
-          {this.state.scores.map( (scores, index, game) => (
-            <div className="border" key={index}>
-              <Scores>
-                <h3>{scores.score}  {scores.name}</h3>
-              </Scores>
-            </div>
-          ))}
+          <table>
+            {this.state.scores.map( (scores, index, game) => (
+              <tr>
+                <td>{scores.score}</td>
+                <td>{scores.name}</td>
+              </tr>
+            ))}
+          </table>
 
          
         </Container>
